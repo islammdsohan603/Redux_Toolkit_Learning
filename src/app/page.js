@@ -1,9 +1,12 @@
 import Image from "next/image";
+import store from "./store";
+import { Provider } from "react-redux";
+import App from "@/componentes/App";
 
 export default function Home() {
   return (
-    <div>
-       <h1 className="text-2xl text-center font-bold">Counter App</h1>
-    </div>
+    <Provider store={store}>
+      <App/>
+    </Provider>
   );
 }
