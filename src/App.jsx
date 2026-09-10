@@ -1,4 +1,4 @@
-import { fetchPhotos } from "./api/mediaApp";
+import { fetchPhotos, fetchVideos } from "./api/mediaApp";
 
 function App() {
   return (
@@ -6,11 +6,21 @@ function App() {
       <h1 className="text-4xl font-bold text-white text-center">Counter</h1>
 
       <button
-        onClick={() => fetchPhotos("cat")}
+        onClick={async () => {
+          console.log(await fetchPhotos("cat"));
+        }}
         className=" bg-amber-500 p-4 rounded-2xl cursor-pointer mx-0"
       >
         {" "}
         Get Photos{" "}
+      </button>
+
+      <button onClick={async()=>
+        {
+          console.log(await fetchVideos("cat"));
+
+        }} className="bg-amber-500 p-4 rounded-2xl cursor-pointer mx-0">
+        Get Video
       </button>
     </div>
   );
