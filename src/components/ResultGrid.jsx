@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiAlertCircle, FiCamera } from "react-icons/fi";
 import { HiSparkles } from "react-icons/hi2";
 import ResultCard from "./ResultCard";
+import Pagination from "./Pagination";
 
 const SKELETON_HEIGHTS = [200, 280, 160, 320, 240, 180, 300, 200, 260, 140, 220, 300];
 
@@ -120,6 +121,7 @@ const ResultGrid = () => {
           ))}
         </AnimatePresence>
       </div>
+      <Pagination />
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiImage, FiFilm } from "react-icons/fi";
-import { setActiveTabs, clearResults } from "../redux/features/searchSlice";
+import { setActiveTabs } from "../redux/features/searchSlice";
+import { searchMedia } from "../redux/features/searchSlice";
 
 const TABS = [
   { id: "photos", label: "Photos", Icon: FiImage },
@@ -10,17 +11,22 @@ const TABS = [
 
 const Tabs = () => {
   const dispatch = useDispatch();
-  const activeTab = useSelector((s) => s.search.activeTab);
+  const { activeTab, query } = useSelector((s) => s.search);
 
   const handleTabChange = (tabId) => {
-    if (tabId !== activeTab) {
-      dispatch(setActiveTabs(tabId));
-      dispatch(clearResults());
+    if (tabId === activeTab) return;
+    dispatch(setActiveTabs(tabId));
+    // Re-search with the new tab if there's already a query
+    if (query) {
+      dispatch(searchMedia({ query, activeTab: tabId, page: 1 }));
     }
   };
 
   return (
-    <div className="flex items-center gap-1 glass rounded-xl p-1" style={{ width: "fit-content" }}>
+    <div
+      className="flex items-center gap-1 glass rounded-xl p-1"
+      style={{ width: "fit-content" }}
+    >
       {TABS.map(({ id, label, Icon }) => {
         const isActive = activeTab === id;
         return (

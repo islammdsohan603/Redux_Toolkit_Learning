@@ -3,14 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSearch, FiX } from "react-icons/fi";
 import { HiSparkles } from "react-icons/hi2";
-import {
-  setQuery,
-  setResult,
-  setLoading,
-  setError,
-  clearResults,
-} from "../redux/features/searchSlice";
-import { fetchPhotos, fetchVideos } from "../api/mediaApp";
+import { setQuery, clearResults } from "../redux/features/searchSlice";
+import { searchMedia } from "../redux/features/searchSlice";
 
 const SearchBar = () => {
   const [text, setText] = useState("");
@@ -20,56 +14,15 @@ const SearchBar = () => {
   const dispatch = useDispatch();
   const { activeTab, loading } = useSelector((s) => s.search);
 
-  const doSearch = async (searchText) => {
-    if (!searchText.trim()) return;
-    dispatch(setQuery(searchText));
-    dispatch(clearResults());
-    dispatch(setLoading(true));
-
-    try {
-      if (activeTab === "photos") {
-        const data = await fetchPhotos(searchText);
-        // Normalize Unsplash: tag each item with type
-        const normalized = (data?.results || []).map((p) => ({
-          ...p,
-          _type: "photo",
-          _thumb: p.urls?.small,
-          _full: p.urls?.full,
-          _author: p.user?.name,
-          _authorLink: p.user?.links?.html,
-          _sourceLink: p.links?.html,
-          _description: p.alt_description || p.description || "",
-          _color: p.color,
-        }));
-        dispatch(setResult(normalized));
-      } else {
-        const data = await fetchVideos(searchText);
-        // Normalize Pexels: tag each item with type
-        const normalized = (data?.videos || []).map((v) => ({
-          ...v,
-          _type: "video",
-          _thumb: v.image,
-          _videoUrl:
-            v.video_files?.find((f) => f.quality === "sd")?.link ||
-            v.video_files?.[0]?.link,
-          _author: v.user?.name,
-          _authorLink: v.user?.url,
-          _sourceLink: v.url,
-          _description: `${v.width}×${v.height} · ${v.duration}s`,
-          _duration: v.duration,
-          _width: v.width,
-          _height: v.height,
-        }));
-        dispatch(setResult(normalized));
-      }
-    } catch (err) {
-      dispatch(setError(err?.message || "Something went wrong"));
-    }
-  };
-
   const submitHandler = (e) => {
     e.preventDefault();
-    doSearch(text);
+    const searchText = text.trim();
+    if (!searchText) return;
+
+    dispatch(setQuery(searchText));
+    dispatch(clearResults());
+    dispatch(searchMedia({ query: searchText, activeTab, page: 1 }));
+
     setText("");
     inputRef.current?.blur();
   };
@@ -80,7 +33,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4">
+    <div className="w-full max-w-2xl mx-auto px-4">
       <form onSubmit={submitHandler}>
         <motion.div
           className="relative flex items-center glass rounded-2xl overflow-hidden"
@@ -108,7 +61,7 @@ const SearchBar = () => {
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             placeholder="Search photos, videos…"
-            className="flex-1 bg-transparent p-4 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none text-[15px]"
+            className="flex-1 bg-transparent py-5 px-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none text-[15px]"
           />
 
           {/* Clear button */}
