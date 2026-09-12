@@ -15,25 +15,47 @@ const SkeletonCard = ({ height }) => (
 
 const EmptyState = () => (
   <motion.div
-    className="flex flex-col items-center justify-center py-24 gap-5 text-center"
-    initial={{ opacity: 0, y: 20 }}
+    className="flex flex-col items-center justify-center py-16 gap-4 text-center"
+    initial={{ opacity: 0, y: 15 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.1 }}
   >
     <motion.div
       className="w-20 h-20 rounded-2xl flex items-center justify-center"
-      style={{ background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.3)" }}
-      animate={{ y: [0, -8, 0] }}
-      transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+      style={{
+        background: "rgba(147,51,234,0.12)",
+        border: "1px solid rgba(168,85,247,0.35)",
+        boxShadow: "0 0 30px rgba(147,51,234,0.15)",
+      }}
+      animate={{ y: [0, -6, 0] }}
+      transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
     >
-      <FiCamera size={36} style={{ color: "var(--accent-2)" }} />
+      <FiCamera size={34} style={{ color: "#c084fc" }} />
     </motion.div>
     <div>
-      <h3 style={{ fontFamily: "'Outfit', sans-serif", fontSize: "1.25rem", marginBottom: "0.5rem" }}>
+      <h3
+        style={{
+          fontFamily: "'Outfit', sans-serif",
+          fontSize: "1.25rem",
+          fontWeight: 700,
+          color: "#ffffff",
+          marginBottom: "0.5rem",
+        }}
+      >
         Search for anything
       </h3>
-      <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", maxWidth: "300px" }}>
-        Type a keyword above to discover stunning photos and videos from Unsplash & Pexels.
+      <p
+        style={{
+          color: "#94a3b8",
+          fontSize: "0.875rem",
+          lineHeight: 1.5,
+          maxWidth: "320px",
+          margin: "0 auto",
+        }}
+      >
+        Type a keyword above to discover<br />
+        stunning photos and videos from Unsplash<br />
+        & Pexels.
       </p>
     </div>
   </motion.div>

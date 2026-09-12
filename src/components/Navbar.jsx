@@ -22,7 +22,7 @@ const Navbar = () => {
         {/* Logo */}
         <NavLink
           to="/"
-          style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.5rem" }}
+          style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.6rem" }}
         >
           <motion.div
             className="flex items-center justify-center"
@@ -30,19 +30,20 @@ const Navbar = () => {
               width: "32px",
               height: "32px",
               borderRadius: "0.5rem",
-              background: "linear-gradient(135deg, #7c3aed, #ec4899)",
+              background: "linear-gradient(135deg, #8b5cf6, #ec4899)",
+              boxShadow: "0 0 15px rgba(139,92,246,0.4)",
             }}
             whileHover={{ rotate: 10, scale: 1.05 }}
           >
             <HiSparkles size={16} color="#fff" />
           </motion.div>
           <span
-            className="gradient-text"
             style={{
               fontFamily: "'Outfit', sans-serif",
               fontSize: "1.25rem",
-              fontWeight: 800,
-              letterSpacing: "-0.02em",
+              fontWeight: 700,
+              color: "#ffffff",
+              letterSpacing: "-0.01em",
             }}
           >
             PixelVault
@@ -50,7 +51,7 @@ const Navbar = () => {
         </NavLink>
 
         {/* Nav Links */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           {[
             { to: "/", label: "Search", Icon: FiSearch },
             { to: "/collection", label: "Collection", Icon: FiBookmark, badge: savedCount },
@@ -63,25 +64,18 @@ const Navbar = () => {
             >
               {({ isActive }) => (
                 <motion.div
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium relative"
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-medium relative"
                   style={{
-                    color: isActive ? "white" : "var(--text-muted)",
-                    background: isActive
-                      ? "rgba(124,58,237,0.18)"
-                      : "transparent",
-                    border: isActive
-                      ? "1px solid rgba(124,58,237,0.35)"
-                      : "1px solid transparent",
-                    fontFamily: "'Inter', sans-serif",
+                    color: isActive ? "#ffffff" : "var(--text-muted)",
+                    background: isActive ? "rgba(255,255,255,0.06)" : "transparent",
                     transition: "all 0.2s",
                   }}
                   whileHover={{
-                    color: "white",
-                    background: "rgba(255,255,255,0.06)",
+                    color: "#ffffff",
                   }}
                 >
-                  <Icon size={15} />
-                  {label}
+                  <Icon size={14} />
+                  <span>{label}</span>
                   {badge > 0 && (
                     <motion.span
                       key={badge}
@@ -93,7 +87,7 @@ const Navbar = () => {
                         height: 18,
                         fontSize: "0.6rem",
                         fontWeight: 700,
-                        background: "linear-gradient(135deg, #7c3aed, #ec4899)",
+                        background: "linear-gradient(135deg, #8b5cf6, #ec4899)",
                       }}
                     >
                       {badge > 99 ? "99+" : badge}

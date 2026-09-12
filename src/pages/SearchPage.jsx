@@ -9,7 +9,7 @@ const Orb = ({ style }) => (
     style={{
       position: "absolute",
       borderRadius: "50%",
-      filter: "blur(80px)",
+      filter: "blur(100px)",
       pointerEvents: "none",
       ...style,
     }}
@@ -18,25 +18,25 @@ const Orb = ({ style }) => (
 
 const SearchPage = () => {
   return (
-    <div style={{ flex: 1, minHeight: 0, position: "relative", overflow: "hidden" }}>
-      {/* Ambient background orbs */}
+    <div style={{ flex: 1, minHeight: "100vh", position: "relative", overflow: "hidden" }}>
+      {/* Ambient background glow orbs */}
       <Orb
         style={{
-          width: 500,
-          height: 500,
-          background: "radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%)",
-          top: "-100px",
+          width: 550,
+          height: 550,
+          background: "radial-gradient(circle, rgba(147,51,234,0.18) 0%, transparent 70%)",
+          top: "-160px",
           left: "50%",
           transform: "translateX(-50%)",
         }}
       />
       <Orb
         style={{
-          width: 300,
-          height: 300,
-          background: "radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 70%)",
-          top: "200px",
-          right: "-60px",
+          width: 400,
+          height: 400,
+          background: "radial-gradient(circle, rgba(217,70,239,0.1) 0%, transparent 70%)",
+          top: "140px",
+          right: "-120px",
         }}
       />
 
@@ -45,83 +45,101 @@ const SearchPage = () => {
         className="bg-grid"
         style={{
           textAlign: "center",
-          padding: "4rem 1.5rem 2.5rem",
+          padding: "5rem 1.5rem 2rem",
           position: "relative",
-          maxWidth: "1400px",
+          maxWidth: "1200px",
           margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
+        {/* Badge tag: • UNSPLASH + PEXELS */}
         <motion.p
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
           style={{
             fontSize: "0.75rem",
             fontWeight: 700,
-            letterSpacing: "0.15em",
+            letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "var(--accent-2)",
-            marginBottom: "0.75rem",
-            display: "flex",
+            color: "#c084fc",
+            marginBottom: "1rem",
+            display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: "0.5rem",
+            gap: "0.45rem",
           }}
         >
           <span
             style={{
-              display: "inline-block",
               width: 6,
               height: 6,
               borderRadius: "50%",
-              background: "var(--accent-2)",
-              boxShadow: "0 0 6px var(--accent-2)",
+              backgroundColor: "#c084fc",
+              boxShadow: "0 0 8px #c084fc",
+              display: "inline-block",
             }}
           />
-          Unsplash + Pexels
+          UNSPLASH + PEXELS
         </motion.p>
 
+        {/* Title: Discover Stunning Media */}
         <motion.h1
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
           style={{
             fontFamily: "'Outfit', sans-serif",
-            fontSize: "clamp(2rem, 5vw, 3.5rem)",
+            fontSize: "clamp(2.4rem, 5.5vw, 3.8rem)",
             fontWeight: 800,
             letterSpacing: "-0.03em",
-            marginBottom: "0.5rem",
-            lineHeight: 1.1,
+            marginBottom: "0.85rem",
+            lineHeight: 1.15,
+            color: "#ffffff",
           }}
         >
           Discover Stunning{" "}
-          <span className="gradient-text">Media</span>
+          <span
+            style={{
+              background: "linear-gradient(135deg, #a855f7 20%, #f472b6 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            Media
+          </span>
         </motion.h1>
 
+        {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
           style={{
-            color: "var(--text-muted)",
-            fontSize: "1rem",
-            maxWidth: "480px",
-            margin: "0 auto 2rem",
+            color: "#94a3b8",
+            fontSize: "0.98rem",
+            lineHeight: 1.6,
+            maxWidth: "520px",
+            margin: "0 auto 2.25rem",
           }}
         >
-          Search millions of free photos and videos, save your favorites, and download in full quality.
+          Search millions of free photos and videos, save your favorites,
+          <br className="hidden sm:inline" /> and download in full quality.
         </motion.p>
 
-        {/* Search Bar */}
+        {/* Search Bar Wrapper - একদম পারফেক্ট মাঝখানে রাখার জন্য max-w-2xl */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25, type: "spring", stiffness: 200 }}
+          className="w-full max-w-2xl mx-auto flex justify-center"
         >
           <SearchBar />
         </motion.div>
 
-        {/* Tabs */}
+        {/* Tabs directly below SearchBar */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -130,14 +148,15 @@ const SearchPage = () => {
             marginTop: "1.25rem",
             display: "flex",
             justifyContent: "center",
+            width: "100%",
           }}
         >
           <Tabs />
         </motion.div>
       </div>
 
-      {/* Results */}
-      <div style={{ padding: "0 1.5rem 3rem", maxWidth: "1400px", margin: "0 auto" }}>
+      {/* Results / Empty State Grid */}
+      <div style={{ padding: "1rem 1.5rem 4rem", maxWidth: "1400px", margin: "0 auto" }}>
         <ResultGrid />
       </div>
     </div>
