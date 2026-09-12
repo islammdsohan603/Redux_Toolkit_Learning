@@ -1,11 +1,20 @@
 import { useState } from "react";
 
+import { useDispatch } from "react-redux";
+
+import { setQuery } from "../redux/features/searchSlice";
+
 const SearchBar = () => {
-  const [text, setText] = useState(false);
+  const [text, setText] = useState();
+
+  const dispatch = useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("form submit");
+
+    dispatch(setQuery);
+
+    setText("");
   };
 
   return (
@@ -18,6 +27,11 @@ const SearchBar = () => {
       >
         <input
           type="text"
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
+          required
           placeholder="Search anything..."
           className="border-2 px-4 rounded-3xl outline-none"
         />
