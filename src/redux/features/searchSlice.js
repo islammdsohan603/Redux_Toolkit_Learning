@@ -5,7 +5,7 @@ const searchSlice = createSlice({
 
   initialState: {
     query: "",
-    activeTab: "",
+    activeTab: "photos",
     results: [],
     loading: false,
     error: null,
@@ -38,6 +38,13 @@ const searchSlice = createSlice({
     clearResults(state) {
       state.results = [];
     },
+
+    // Remove a single item from results (Delete from UI)
+    removeFromResults(state, action) {
+      state.results = state.results.filter(
+        (item) => item.id !== action.payload
+      );
+    },
   },
 });
 
@@ -48,6 +55,7 @@ export const {
   setLoading,
   setError,
   clearResults,
+  removeFromResults,
 } = searchSlice.actions;
 
 export default searchSlice.reducer;
